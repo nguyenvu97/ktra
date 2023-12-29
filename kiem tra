@@ -33,10 +33,109 @@ Mã Hóa Bất Đối Xứng:
 •	Phương pháp này giải quyết vấn đề chia sẻ khóa mà các hệ thống mã hóa đối xứng gặp phải.
 •	Ví dụ: RSA (Rivest–Shamir–Adleman) là một hệ thống mã hóa bất đối xứng phổ biến.
 1.2
-Hinh ảnh Mã Hóa Bất Đối Xứng :https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/12/aes-1.jpg.webp
+Hinh ảnh Mã Hóa Đối Xứng :https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/12/aes-1.jpg.webp
+Hình anh Mã Hóa Bất Đối Xứng : https://d3hi6wehcrq5by.cloudfront.net/itnavi-blog/2021/06/RSA-la-gi-2.png
+1.3 So sánh 
+ Mã Hóa Đối Xứng :
+        Chìa Khóa: Sử dụng cùng một chìa khóa để mã hóa và giải mã dữ liệu.
+        Tốc Độ: Thường nhanh hơn so với mã hóa bất đối xứng do sử dụng một chìa khóa duy nhất.
+        Ứng Dụng: Thường được sử dụng cho việc mã hóa lớn lẻ dữ liệu, như mã hóa file, ổ đĩa, và truyền dữ liệu qua mạng.
+        Ví Dụ: AES (Advanced Encryption Standard), DES (Data Encryption Standard).
+Mã Hóa Bất Đối Xứng :
+        Chìa Khóa: Sử dụng một cặp chìa khóa: chìa khóa công khai (public key) và chìa khóa riêng tư (private key).
+        Tốc Độ: Thường chậm hơn so với mã hóa đối xứng do sử dụng cặp chìa khóa.
+        Ứng Dụng: Thường được sử dụng cho việc ký số, xác thực, và giao tiếp an toàn.
+        Ví Dụ: RSA (Rivest-Shamir-Adleman), ECC (Elliptic Curve Cryptography).
+Bất đối xứng tuy phức tạp hơn vê mặt cấu trúc nhung sứ lý có thể lâu hơn so vs đối xứng nhưng mang tinh bảo mật hơn ,và thích hợp cho các mục đích như xác thực, ký số, và giao tiếp an toàn.
+
+1.4 code
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        // Tạo một đôi chìa khóa (công khai và riêng tư)
+        using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+        {
+            // Dữ liệu cần mã hóa
+            string originalData = "Hello, RSA encryption!";
+
+            // Mã hóa dữ liệu bằng chìa khóa công khai
+            byte[] encryptedData = EncryptData(originalData, rsa.ExportParameters(false));
+
+            // Giải mã dữ liệu bằng chìa khóa riêng tư
+            string decryptedData = DecryptData(encryptedData, rsa.ExportParameters(true));
+
+            // Hiển thị kết quả
+            Console.WriteLine("Original Data: " + originalData);
+            Console.WriteLine("Encrypted Data: " + Convert.ToBase64String(encryptedData));
+            Console.WriteLine("Decrypted Data: " + decryptedData);
+        }
+    }
+
+    // Mã hóa dữ liệu bằng chìa khóa công khai
+    static byte[] EncryptData(string data, RSAParameters publicKey)
+    {
+        using (RSACryptoServiceProvider rsaEncrypt = new RSACryptoServiceProvider())
+        {
+            rsaEncrypt.ImportParameters(publicKey);
+            byte[] bytesToEncrypt = Encoding.UTF8.GetBytes(data);
+            return rsaEncrypt.Encrypt(bytesToEncrypt, false);
+        }
+    }
+
+    // Giải mã dữ liệu bằng chìa khóa riêng tư
+    static string DecryptData(byte[] encryptedData, RSAParameters privateKey)
+    {
+        using (RSACryptoServiceProvider rsaDecrypt = new RSACryptoServiceProvider())
+        {
+            rsaDecrypt.ImportParameters(privateKey);
+            byte[] decryptedBytes = rsaDecrypt.Decrypt(encryptedData, false);
+            return Encoding.UTF8.GetString(decryptedBytes);
+        }
+    }
+}
 
 
 câu 3 
-Khai niệm về Lỗ hổng bảo mật:
+3.1)Khai niệm về Lỗ hổng bảo mật:
   Lỗ hổng bảo mật là những điểm yếu trong hệ thống, ứng dụng hoặc quy trình có thể bị tận dụng để đảm bảo việc xâm nhập, thay đổi, hoặc phá hoại thông tin. 
   Các lỗ hổng này có thể xuất hiện do thiếu sót trong thiết kế, triển khai, hoặc duy trì bảo mật của hệ thống.
+3.2)Phương pháp phòng tránh
+        1 )Sử dụng Thủ tục Lưu trữ và Tham số Hóa:
+                CREATE PROCEDURE GetUser
+                @email NVARCHAR(50)
+                AS
+                BEGIN
+                SELECT * FROM Users WHERE email = @email;
+                END;
+        code C# SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE email = @email", connection);
+                cmd.Parameters.AddWithValue("@email", userInput);
+
+        2) check Input data
+        public bool IsValidEmail(string email){
+        string pattern = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+        
+        Regex regex = new Regex(pattern);
+         if(regex.IsMatch(email)){
+                SaveToDatabase(email);
+        } return true;
+            }
+            else
+            {
+        // Email không hợp lệ, bạn có thể trả về thông báo lỗi hoặc hiển thị Flash message
+        // Ví dụ: FlashMessage.Show("Email không hợp lệ");
+        
+        return false;
+    }
+        * check đầu vao dữ liệu nếu dung định dạng yêu câu thi moi cho luu vao sql
+
+        3)Sử Dụng ORM (Object-Relational Mapping):
+        Sử dụng ORM frameworks giúp tự động tạo câu lệnh SQL từ đối tượng mô hình dữ liệu, giảm khả năng có lỗ hổng do việc tạo câu lệnh SQL thủ công.
+        // Sử dụng Entity Framework (EF) ORM
+        var user = dbContext.Users.SingleOrDefault(u => u.email == email);
+
