@@ -1,0 +1,42 @@
+câu 3 : Phương pháp xác thực mật khẩu (SHA256)
+
+
+public static string ComputeSha256hash(string input)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                byte[] hash = sha256.ComputeHash(inputBytes);
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    builder.Append(hash[i].ToString("x2"));
+                }
+
+                return builder.ToString();
+            }
+        }
+
+'1','vu1705@gmail.com','$2a$11$j0GEWFYG8eC0Es5wJfIT2.jPNrqVD7rwr21AHvFndbih3o/53vIqu','nguyenvu','hanoi','0338910536','2023-12-18 09:08:53.639570',NULL,'Active','69525f50-1808-479f-981e-61255ebfaaa8'
+
+câu 1:
+1.1Khái Niêm RSA : 
+Mã Hóa Đối Xứng:
+•	Mã hóa đối xứng là phương pháp sử dụng cùng một khóa cho cả quá trình mã hóa và giải mã dữ liệu.
+•	Dữ liệu được mã hóa bằng khóa và sau đó giải mã bằng cùng một khóa.
+•	Đây là phương pháp hiệu quả và nhanh chóng, thích hợp cho việc truyền thông và lưu trữ dữ liệu lớn.
+•	Ví dụ: AES (Advanced Encryption Standard) là một thuật toán mã hóa đối xứng phổ biến.
+Mã Hóa Bất Đối Xứng:
+•	Mã hóa bất đối xứng sử dụng cặp khóa gồm khóa công khai và khóa bí mật.
+•	Dữ liệu được mã hóa bằng khóa công khai và chỉ có thể được giải mã bằng khóa bí mật tương ứng, và ngược lại.
+•	Phương pháp này giải quyết vấn đề chia sẻ khóa mà các hệ thống mã hóa đối xứng gặp phải.
+•	Ví dụ: RSA (Rivest–Shamir–Adleman) là một hệ thống mã hóa bất đối xứng phổ biến.
+1.2
+Hinh ảnh Mã Hóa Bất Đối Xứng :https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/12/aes-1.jpg.webp
+
+
+câu 3 
+Khai niệm về Lỗ hổng bảo mật:
+  Lỗ hổng bảo mật là những điểm yếu trong hệ thống, ứng dụng hoặc quy trình có thể bị tận dụng để đảm bảo việc xâm nhập, thay đổi, hoặc phá hoại thông tin. 
+  Các lỗ hổng này có thể xuất hiện do thiếu sót trong thiết kế, triển khai, hoặc duy trì bảo mật của hệ thống.
