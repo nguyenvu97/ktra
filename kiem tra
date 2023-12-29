@@ -17,7 +17,7 @@ public static string ComputeSha256hash(string input)
                 return builder.ToString();
             }
         }
-
+        password : "$2a$11$j0GEWFYG8eC0Es5wJfIT2.jPNrqVD7rwr21AHvFndbih3o/53vIqu"
 '1','vu1705@gmail.com','$2a$11$j0GEWFYG8eC0Es5wJfIT2.jPNrqVD7rwr21AHvFndbih3o/53vIqu','nguyenvu','hanoi','0338910536','2023-12-18 09:08:53.639570',NULL,'Active','69525f50-1808-479f-981e-61255ebfaaa8'
 
 câu 1:
@@ -100,7 +100,7 @@ class Program
 }
 
 
-câu 3 
+câu 2
 3.1)Khai niệm về Lỗ hổng bảo mật:
   Lỗ hổng bảo mật là những điểm yếu trong hệ thống, ứng dụng hoặc quy trình có thể bị tận dụng để đảm bảo việc xâm nhập, thay đổi, hoặc phá hoại thông tin. 
   Các lỗ hổng này có thể xuất hiện do thiếu sót trong thiết kế, triển khai, hoặc duy trì bảo mật của hệ thống.
